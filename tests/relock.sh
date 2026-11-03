@@ -26,7 +26,7 @@ done
 # its lockfile is kept outside its source, in tests/real/ring.
 system=$(nix eval --raw --impure --expr builtins.currentSystem)
 ring=$(nix build --no-link --print-out-paths "$root#checks.$system.ring-source")
-cp -r "$ring" "$work/ring-source"
+cp -R "$ring" "$work/ring-source"
 chmod -R u+w "$work/ring-source"
 (cd "$work/ring-source" && "$cli" lock --force --lockfile "$work/ring.lock.json")
 if ! cmp "$root/tests/real/ring/lein-purifier.lock.json" "$work/ring.lock.json"; then

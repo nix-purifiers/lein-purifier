@@ -30,6 +30,6 @@ compare() {
 for project in hello multi-sub; do
   while IFS= read -r path; do
     compare "$project" "$path"
-  done < <(cd "$work/$project/.lein-purifier/release" && find . -type f     \( -name '*.jar' -o -name '*.pom' \) -printf '%P\n')
+  done < <(cd "$work/$project/.lein-purifier/release" && find . -type f \( -name '*.jar' -o -name '*.pom' \) | sed 's|^\./||')
 done
 echo "publish.sh: passed"

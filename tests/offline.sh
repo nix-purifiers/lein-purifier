@@ -77,7 +77,8 @@ expect 'MULTI-SUB!' "$(offline "$cli/lein" run)"
 # A dependency the lock does not hold stops the loop, naming the command
 # that fixes it.
 cd "$work/hello"
-sed -i 's|\[hiccup "1.0.5"\]|[hiccup "1.0.5"] [org.clojure/core.async "1.6.681"]|' project.clj
+sed 's|\[hiccup "1.0.5"\]|[hiccup "1.0.5"] [org.clojure/core.async "1.6.681"]|' project.clj >project.clj.new
+mv project.clj.new project.clj
 if offline "$cli/lein" deps 2>"$work/errors"; then
   echo "offline.sh: lein accepted a dependency the lock does not hold" >&2
   exit 1

@@ -351,6 +351,10 @@ cmdLock() {
 
   local work
   work=$(mktemp -d "${TMPDIR:-/tmp}/lein-purifier.XXXXXX")
+  # The paths the lock run compares with work come normalized: Java drops
+  # a doubled slash (macOS's TMPDIR ends in a slash) and realpath resolves
+  # symlinks (macOS's /var is one). So work is canonical too.
+  work=$(realpath "$work")
   # shellcheck disable=SC2064 # work is fixed from here on
   trap "rm -rf '$work'" EXIT
   mkdir -p "$work/project" "$work/home/.lein" "$work/java-tmp"
