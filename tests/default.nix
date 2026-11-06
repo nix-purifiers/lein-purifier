@@ -136,10 +136,12 @@ in
           pkgs.findutils
           pkgs.gnused
           pkgs.gawk
+          pkgs.python3
         ];
       }
       ''
         bash ${./unit.sh} ${../pkgs/lein-purifier/entries.sh}
+        python3 -B ${./java-major.py} ${../pkgs/lein-purifier/lein-purifier.sh}
         touch $out
       '';
 

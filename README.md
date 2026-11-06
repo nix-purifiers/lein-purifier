@@ -82,6 +82,15 @@ lein-purifier package, and ignores `JAVA_HOME`, so a machine with a JDK of
 its own, such as a CI runner, locks the same. The lockfile records the JDK
 major version only, and the builder runs on nixpkgs' JDK of that version.
 
+Java versions using the older `1.x` notation record their actual major (`8`
+for `1.8.0_504`); modern and early-access versions record their leading major.
+This parsing does not establish compatibility with those JVMs or change the
+JVM selected by the packaged Leiningen. Existing locks are not rewritten. A
+lock that previously recorded `javaMajor: "1"` needs an explicit
+`lein-purifier lock --force` with the intended packaged JVM; its integrity
+prevents fixing the value by hand. The builder still needs an available JDK
+for that major, or an explicit `jdk` argument.
+
 Leiningen has no lockfile of its own, so the versions that a version range
 or a SNAPSHOT dependency resolves to are recorded only in
 `lein-purifier.lock.json`. `lein-purifier lock` keeps them: it gives the
@@ -395,6 +404,7 @@ input that is not a flake (`inputs.ring = { url = "github:ring-clojure/ring";
 flake = false; }`), and pass both to the builder in that repository's
 flake:
 `pkgs.lein-purifier.buildLeinProject { src = ring; lockFile = ./ring.lock.json; }`.
+
 
 ## Credits
 
