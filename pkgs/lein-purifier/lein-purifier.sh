@@ -148,13 +148,14 @@ checkLockFile() {
   fi
 }
 
-# The major version of the Java version $1, such as 21 for 21.0.12.1. The
+# The major version of Java $1: 8 for 1.8.0_504, or 21 for 21.0.12.1. The
 # lockfile records only this, so a nixpkgs update that moves the patch
 # level of the JDK leaves the lockfile as it is. The JDK is the one in the
 # closure of the lein-purifier package, and lein ignores JAVA_HOME and
 # JAVA_CMD, so a relock on a machine with its own JDK records the same.
 javaMajor() {
-  echo "${1%%.*}"
+  local version=${1#1.}
+  echo "${version%%[.+_-]*}"
 }
 
 # Whether the lockfile was made from this project definition, by this
