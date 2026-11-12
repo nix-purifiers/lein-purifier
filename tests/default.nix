@@ -83,7 +83,7 @@ let
     let
       lock = helloLock // attrs;
     in
-    writeLock (lock // { integrity = import ../nix/lib/integrity.nix lock; });
+    writeLock (lock // { integrity = import ../lib-overlays/default/integrity.nix lock; });
 
   # The problems of the lock in memory of the hello project, with this
   # lockfile.
