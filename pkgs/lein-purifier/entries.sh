@@ -192,7 +192,7 @@ seedMetadata() {
 # a fixed text form. `lein-purifier lock` stores it as `integrity`, and the
 # command and the Nix builder compare it with the lockfile, so a lockfile
 # edited by hand, or left with a bad merge, is refused before anything
-# resolves from it. nix/lib/integrity.nix computes the same text.
+# resolves from it. lib-overlays/default/integrity.nix computes the same text.
 lockIntegrity() {
   local lockFile=$1 line path
   {

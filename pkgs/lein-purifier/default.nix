@@ -47,11 +47,11 @@ let
     runtimeEnv = {
       LEIN_PURIFIER_FLAKE = "${source}";
       LEIN_PURIFIER_SYSTEM = stdenv.hostPlatform.system;
-      LEIN_PURIFIER_FORMAT = toString (import ../../nix/lib/lock-version.nix);
+      LEIN_PURIFIER_FORMAT = toString (import ../../lib-overlays/default/lock-version.nix);
       LEIN_PURIFIER_LEIN_VERSION = leiningen.version;
       LEIN_PURIFIER_INIT = ./init.clj;
       LEIN_PURIFIER_PROJECT_INPUTS_TOOL = "${purifier.projectInputsTool}/project_inputs.py";
-      LEIN_PURIFIER_PROJECTION_INIT = ../../nix/lib/project-inputs.clj;
+      LEIN_PURIFIER_PROJECTION_INIT = ../build-lein-project/project-inputs.clj;
       LEIN_PURIFIER_ENTRIES = ./entries.sh;
     };
     text = builtins.readFile ./lein-purifier.sh;

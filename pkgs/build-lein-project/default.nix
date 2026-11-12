@@ -73,7 +73,9 @@ let
   # Leiningen does not hold them, which is a problem only the builder,
   # with its Leiningen, can find. checkLock stops the build before it
   # starts when there is any problem.
-  inMemory = import ./read-lock.nix { inherit lib; } { inherit src lockFile; };
+  inMemory = import ../../lib-overlays/default/read-lock.nix { inherit lib; } {
+    inherit src lockFile;
+  };
   # The lockfile itself, for what only lein-purifier needs: the Leiningen
   # and Java versions, the projects in build order and the repositories
   # inside the project. It is read once readLock found it sound.

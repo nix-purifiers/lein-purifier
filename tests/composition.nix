@@ -76,7 +76,7 @@ let
     builtins.toJSON (
       withoutProvided
       // {
-        integrity = import ../nix/lib/integrity.nix withoutProvided;
+        integrity = import ../lib-overlays/default/integrity.nix withoutProvided;
       }
     )
   );

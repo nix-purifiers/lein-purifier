@@ -10,11 +10,11 @@
   # The lein-purifier command, with the Leiningen of this package set.
   cli = callPackage ./lein-purifier { };
 
-  # The builder of the purifier contract (nix/lib/build-lein-project.nix).
+  # The builder of the purifier contract (pkgs/build-lein-project/default.nix).
   # It takes the packages it needs by name, so `buildLeinProject.override`
   # replaces any of them, and `lein-purifier.overrideScope` replaces what
   # the scope shares.
-  buildLeinProject = callPackage ../nix/lib/build-lein-project.nix {
+  buildLeinProject = callPackage ./build-lein-project {
     purifier = lib.purifier;
   };
 }
